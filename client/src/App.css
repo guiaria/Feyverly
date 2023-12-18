@@ -1,0 +1,11 @@
+.container {
+  font-family: "Quicksand", sans-serif;
+  height: 1000px;
+}
+.user {
+  margin: auto;
+  width: 75%;
+  border: 3px solid green;
+  padding: 10px;
+  text-wrap: wrap;
+}
