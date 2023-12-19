@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import './AddMarker.css';
 
-const AddMarker = () => {
+const AddMarker = ( {refreshState, setRefreshState}) => {
     const [shopName, setShopName] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
-    const [pictureFile, setPictureFile] = useState(null);
-    const [refreshState, setRefreshState] = useState(false);
+
 
     const handleShopNameChange = (e) => {
         setShopName(e.target.value);
@@ -44,12 +44,11 @@ const AddMarker = () => {
 
             addData().then((res) => {
                 if (res.ok) {
-
                     console.log('Add data successfully');
+                    setRefreshState(!refreshState);
                 } else {
                     console.error('Failed to create marker:', res.statusText);
                 }
-                setRefreshState(!refreshState);
             })
 
         } catch (error) {
@@ -59,11 +58,10 @@ const AddMarker = () => {
         setShopName('');
         setLatitude('');
         setLongitude('');
-        setPictureFile(null);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='AddMarkerForm' onSubmit={handleSubmit} style={{margin: '2em'}}>
             <label>
                 Shop Name:
                 <input type="text" value={shopName} onChange={handleShopNameChange} />

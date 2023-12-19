@@ -1,0 +1,27 @@
+.AddMarkerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.AddMarkerForm input[type="text"],
+.AddMarkerForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.AddMarkerForm button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.AddMarkerForm button:hover {
+    background-color: #0056b3;
+}

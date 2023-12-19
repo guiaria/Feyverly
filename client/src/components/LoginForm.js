@@ -1,5 +1,6 @@
 // File: LoginForm.js
 import React, { useState } from 'react';
+import './LoginForm.css';
 
 const LoginForm = ({ onLogin }) => {
     const [username, setUsername] = useState('');
@@ -34,9 +35,9 @@ const LoginForm = ({ onLogin }) => {
     };
 
     return (
-        <div>
+        <div className='login-form-container'>
             <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="login-form">
                 <label>
                     Username:
                     <input

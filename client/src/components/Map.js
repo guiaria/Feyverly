@@ -6,6 +6,7 @@ import AddMarker from './AddMarker';
 
 const Map = ({ username, onLogout }) => {
     const [data, setData] = useState([]);
+    const [refreshState, setRefreshState] = useState(false); // For refreshing the map after adding a marker
     const [displayAddMarker, setDisplayAddMarker] = useState(false);
 
     useEffect(() => {
@@ -17,7 +18,7 @@ const Map = ({ username, onLogout }) => {
             }
         }
         fetchData();
-    }, []);
+    }, [refreshState]);
 
     const mapKey = 'fda7d0a8f7552338ba422e3b13b5ab49'
     const initMap = () => {
@@ -35,7 +36,7 @@ const Map = ({ username, onLogout }) => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                  },
+                },
                 body: JSON.stringify({
                     shopName: data[index].name
                 })
@@ -44,59 +45,64 @@ const Map = ({ username, onLogout }) => {
         } catch (err) {
             console.error('Error:', err);
         }
-      };
+    };
 
-    const removeMarker = () => {
-        map.Overlays.clear();
-    }
+    // const removeMarker = () => {
+    //     map.Overlays.clear();
+    // }
     return (
         <>
-        <div className='container'>
-            <h2>Welcome, {username}!</h2>
-            <button onClick={onLogout}>Logout</button>
-            <button onClick={() => setDisplayAddMarker(!displayAddMarker)}>Add Marker</button>
-            <button onClick={removeMarker}>Remove Marker</button>
-            {displayAddMarker && <AddMarker />}
+            <div className='map-container'>
+                <h2>Welcome, {username}!</h2>
+                <button onClick={onLogout}>Logout</button>
+                <button onClick={() => setDisplayAddMarker(!displayAddMarker)}>Add Marker</button>
+                <div class="tooltip">
+                    <button>Tool Tip</button>
+                    <span class="tooltiptext"> Hover the table to display popup on the map</span>
+                </div>
+                {/* <button onClick={removeMarker}>Remove Marker</button> For Debugging */}
+                {displayAddMarker && <AddMarker refreshState={refreshState} setRefreshState={setRefreshState} />}
 
 
-            <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
-            {/* <Table></Table> */}
-            {data.length > 0 && <Table className="custom-table" striped bordered hover variant="dark">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((item, index) => (
-                        <tr key={index}
-                            onMouseEnter={() => {
-                                let popup = new longdo.Popup({ lon: item.lon, lat: item.lat },
-                                    {
-                                      title: item.name
-                                    });
+                <LongdoMap id="longdo-map" mapKey={mapKey} callback={initMap} />
 
-                                map.Overlays.add(popup)
-                            }}
-                            onMouseLeave={() => {
-                                map.Overlays.clear();
-                            }}>
-                            <td>{item.name}</td>
-                            <td>{item.lat}</td>
-                            <td>{item.lon}</td>
-                            <td><button onClick={e => {
-                                e.preventDefault();
-                                handleRemove(index)
-                            }}>Remove</button></td>
+                {data.length > 0 ? <Table className="custom-table" striped bordered hover variant="dark">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Remove</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
-            }
-        </div>
+                    </thead>
+                    <tbody>
+                        {data.map((item, index) => (
+                            <tr key={index}
+                                onMouseEnter={() => {
+                                    let popup = new longdo.Popup({ lon: item.lon, lat: item.lat },
+                                        {
+                                            title: item.name
+                                        });
+
+                                    map.Overlays.add(popup)
+                                }}
+                                onMouseLeave={() => {
+                                    map.Overlays.clear();
+                                }}>
+                                <td>{item.name}</td>
+                                <td>{item.lat}</td>
+                                <td>{item.lon}</td>
+                                <td><button onClick={e => {
+                                    e.preventDefault();
+                                    handleRemove(index)
+                                }}>Remove</button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table> :
+                    <h3>No data</h3>
+                }
+            </div>
 
         </>
     );
