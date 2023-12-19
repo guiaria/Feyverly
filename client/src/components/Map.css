@@ -1,3 +1,38 @@
 .container {
     height: 100%;
 }
+
+.custom-table {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-table th, .custom-table td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .custom-table thead {
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  .custom-table tbody tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    max-width: 75%;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  button {
+    margin-right: 10px;
+  }
