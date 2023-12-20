@@ -1,4 +1,5 @@
 -- CREATE DATABASE `feyverly` ;
+ALTER USER `root`@`localhost` IDENTIFIED BY 'password';
 
 USE `feyverly`;
 

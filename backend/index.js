@@ -26,7 +26,7 @@ app.use(cors({ origin: 'http://localhost:3000' }))
 app.use(bodyParser.json()); // Otherwise express could not read request body
 
 const db = mysql.createConnection({
-    host: "localhost",
+    host: "db",
     user: "root",
     password: 'password',
     database: "feyverly"
