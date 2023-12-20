@@ -3,7 +3,7 @@ services:
   client:
     build: ./client
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
     environment:
@@ -21,16 +21,16 @@ services:
       - DATABASE_PASSWORD=password
       - DATABASE_NAME=feyverly
 
-db:
-  image: mysql:5.7
-  ports:
-    - "3306:3306"
-  environment:
-    MYSQL_ROOT_PASSWORD: password
-    MYSQL_DATABASE: feyverly
-  volumes:
-    - db-data:/var/lib/mysql
-    - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: feyverly
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
 
 volumes:
   db-data:
