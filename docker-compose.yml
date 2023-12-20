@@ -15,11 +15,11 @@ services:
       - "8800:8800"
     depends_on:
       - db
-    environment:
-      - DATABASE_HOST=db
-      - DATABASE_USER=root
-      - DATABASE_PASSWORD=password
-      - DATABASE_NAME=feyverly
+    # environment:
+    #   - DATABASE_HOST=db
+    #   - DATABASE_USER=root
+    #   - DATABASE_PASSWORD=password
+    #   - DATABASE_NAME=feyverly
 
   db:
     image: mysql:5.7
